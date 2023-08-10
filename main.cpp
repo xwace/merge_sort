@@ -43,6 +43,24 @@ void msort(vector<int *> &arr) {
     merge_sort(left, right);
 }
 
+//迭代法实现归并
+void msort_(vector<int *> &arr) {
+
+    int N = (int) arr.size();
+    for (int j = 1; j < N; j *= 2) {
+        for (int i = 0; i < N;) {
+            int l_pos = std::min(N, i + j);
+            int r_pos = std::min(N, i + 2 * j);
+
+            vector<int *> left(&arr[i], &arr[l_pos]);
+            vector<int *> right(&arr[min(i + j, N)], &arr[r_pos]);
+
+            merge_sort(left, right);
+            i += 2 * j;
+        }
+    }
+}
+
 int main(){
   
     vector<int>ms{5,4,3,2,1};
